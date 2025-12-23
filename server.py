@@ -19,6 +19,13 @@ client = AsyncIOMotorClient(mongo_url)
 db = client[os.environ['DB_NAME']]
 
 app = FastAPI()
+
+# --- AJOUT ICI : ROUTE POUR LE PING (UPTIMEROBOT) ---
+# Cette route permet à UptimeRobot de "réveiller" le serveur à la racine "/"
+@app.get("/")
+async def health_check():
+    return {"status": "alive", "message": "Le serveur RPG ne dort jamais !"}
+
 api_router = APIRouter(prefix="/api")
 
 # --- DEFINITION DES RANGS (TITRES) ---
